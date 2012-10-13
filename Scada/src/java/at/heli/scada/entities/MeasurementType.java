@@ -26,16 +26,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "MEASURETYPE")
+@Table(name = "MEASUREMENT_TYPE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Measuretype.findAll", query = "SELECT m FROM Measuretype m"),
-    @NamedQuery(name = "Measuretype.findByTypeid", query = "SELECT m FROM Measuretype m WHERE m.typeid = :typeid"),
-    @NamedQuery(name = "Measuretype.findByDescription", query = "SELECT m FROM Measuretype m WHERE m.description = :description"),
-    @NamedQuery(name = "Measuretype.findByMinvalue", query = "SELECT m FROM Measuretype m WHERE m.minvalue = :minvalue"),
-    @NamedQuery(name = "Measuretype.findByMaxvalue", query = "SELECT m FROM Measuretype m WHERE m.maxvalue = :maxvalue"),
-    @NamedQuery(name = "Measuretype.findByUnit", query = "SELECT m FROM Measuretype m WHERE m.unit = :unit")})
-public class Measuretype implements Serializable {
+    @NamedQuery(name = "MeasurementType.findAll", query = "SELECT m FROM MeasurementType m"),
+    @NamedQuery(name = "MeasurementType.findByTypeid", query = "SELECT m FROM MeasurementType m WHERE m.typeid = :typeid"),
+    @NamedQuery(name = "MeasurementType.findByDescription", query = "SELECT m FROM MeasurementType m WHERE m.description = :description"),
+    @NamedQuery(name = "MeasurementType.findByMinvalue", query = "SELECT m FROM MeasurementType m WHERE m.minvalue = :minvalue"),
+    @NamedQuery(name = "MeasurementType.findByMaxvalue", query = "SELECT m FROM MeasurementType m WHERE m.maxvalue = :maxvalue"),
+    @NamedQuery(name = "MeasurementType.findByUnit", query = "SELECT m FROM MeasurementType m WHERE m.unit = :unit")})
+public class MeasurementType implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -64,14 +64,14 @@ public class Measuretype implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeid")
     private Collection<Measurement> measurementCollection;
 
-    public Measuretype() {
+    public MeasurementType() {
     }
 
-    public Measuretype(Integer typeid) {
+    public MeasurementType(Integer typeid) {
         this.typeid = typeid;
     }
 
-    public Measuretype(Integer typeid, String description, BigDecimal minvalue, BigDecimal maxvalue, String unit) {
+    public MeasurementType(Integer typeid, String description, BigDecimal minvalue, BigDecimal maxvalue, String unit) {
         this.typeid = typeid;
         this.description = description;
         this.minvalue = minvalue;
@@ -138,10 +138,10 @@ public class Measuretype implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Measuretype)) {
+        if (!(object instanceof MeasurementType)) {
             return false;
         }
-        Measuretype other = (Measuretype) object;
+        MeasurementType other = (MeasurementType) object;
         if ((this.typeid == null && other.typeid != null) || (this.typeid != null && !this.typeid.equals(other.typeid))) {
             return false;
         }
@@ -150,7 +150,7 @@ public class Measuretype implements Serializable {
 
     @Override
     public String toString() {
-        return "at.heli.scada.entities.Measuretype[ typeid=" + typeid + " ]";
+        return "at.heli.scada.entities.MeasurementType[ typeid=" + typeid + " ]";
     }
     
 }

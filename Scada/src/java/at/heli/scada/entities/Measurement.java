@@ -26,22 +26,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Measurement.findAll", query = "SELECT m FROM Measurement m"),
-    @NamedQuery(name = "Measurement.findByMesid", query = "SELECT m FROM Measurement m WHERE m.mesid = :mesid"),
-    @NamedQuery(name = "Measurement.findByPointoftime", query = "SELECT m FROM Measurement m WHERE m.pointoftime = :pointoftime")})
+    @NamedQuery(name = "Measurement.findByMeasid", query = "SELECT m FROM Measurement m WHERE m.measid = :measid"),
+    @NamedQuery(name = "Measurement.findByTimestamp", query = "SELECT m FROM Measurement m WHERE m.timestamp = :timestamp")})
 public class Measurement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "MESID")
-    private Integer mesid;
+    @Column(name = "MEASID")
+    private Integer measid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "POINTOFTIME")
-    private int pointoftime;
+    @Column(name = "TIMESTAMP")
+    private int timestamp;
     @JoinColumn(name = "TYPEID", referencedColumnName = "TYPEID")
     @ManyToOne(optional = false)
-    private Measuretype typeid;
+    private MeasurementType typeid;
     @JoinColumn(name = "INSTALLATIONID", referencedColumnName = "INSTALLATIONID")
     @ManyToOne(optional = false)
     private Installation installationid;
@@ -49,36 +49,36 @@ public class Measurement implements Serializable {
     public Measurement() {
     }
 
-    public Measurement(Integer mesid) {
-        this.mesid = mesid;
+    public Measurement(Integer measid) {
+        this.measid = measid;
     }
 
-    public Measurement(Integer mesid, int pointoftime) {
-        this.mesid = mesid;
-        this.pointoftime = pointoftime;
+    public Measurement(Integer measid, int timestamp) {
+        this.measid = measid;
+        this.timestamp = timestamp;
     }
 
-    public Integer getMesid() {
-        return mesid;
+    public Integer getMeasid() {
+        return measid;
     }
 
-    public void setMesid(Integer mesid) {
-        this.mesid = mesid;
+    public void setMeasid(Integer measid) {
+        this.measid = measid;
     }
 
-    public int getPointoftime() {
-        return pointoftime;
+    public int getTimestamp() {
+        return timestamp;
     }
 
-    public void setPointoftime(int pointoftime) {
-        this.pointoftime = pointoftime;
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public Measuretype getTypeid() {
+    public MeasurementType getTypeid() {
         return typeid;
     }
 
-    public void setTypeid(Measuretype typeid) {
+    public void setTypeid(MeasurementType typeid) {
         this.typeid = typeid;
     }
 
@@ -93,7 +93,7 @@ public class Measurement implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (mesid != null ? mesid.hashCode() : 0);
+        hash += (measid != null ? measid.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +104,7 @@ public class Measurement implements Serializable {
             return false;
         }
         Measurement other = (Measurement) object;
-        if ((this.mesid == null && other.mesid != null) || (this.mesid != null && !this.mesid.equals(other.mesid))) {
+        if ((this.measid == null && other.measid != null) || (this.measid != null && !this.measid.equals(other.measid))) {
             return false;
         }
         return true;
@@ -112,7 +112,7 @@ public class Measurement implements Serializable {
 
     @Override
     public String toString() {
-        return "at.heli.scada.entities.Measurement[ mesid=" + mesid + " ]";
+        return "at.heli.scada.entities.Measurement[ measid=" + measid + " ]";
     }
     
 }
