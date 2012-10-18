@@ -1,0 +1,6 @@
+/Scada/nbproject/private/
+/Scada/build/
+*.class
+*.jar
+*.war
+*.ear
