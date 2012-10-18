@@ -170,7 +170,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "at.heli.scada.entities.Customer[ customerid=" + customerid + " ]";
+        return firstname + " " + lastname;
     }
     
 }
