@@ -4,12 +4,17 @@
  */
 package at.heli.scada.servlets;
 
-import at.heli.scada.beans.CustomerSessionBean;
-import at.heli.scada.entities.Customer;
+import at.heli.scada.entities.Engineer;
+import at.heli.scada.entities.Person;
+import at.heli.scada.repo.DbEngineerRepository;
+import at.heli.scada.repo.Repository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TestServlet extends HttpServlet {
 
-    @EJB
-    CustomerSessionBean bean;
+    @EJB(name="dbEngineer")
+    Repository<Engineer> bean;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -46,18 +51,16 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");            
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
             
-            List<Customer> res = bean.getCustomers();
             
-            if(res.size() == 0)
+            
+            
+            
+            List<Engineer> res = bean.getAll();
+            
+            out.println(res.size());
+            for(Person e : res)
             {
-                out.println("Keine Kunden in der Datenbank!");
-            }
-            else
-            {
-                for(Customer c : res)
-                {
-                    out.println(c.toString());
-                }
+                out.println(e);
             }
             out.println("</body>");
             out.println("</html>");

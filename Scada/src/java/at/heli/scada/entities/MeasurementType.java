@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Daniel
+ * @author daniel
  */
 @Entity
 @Table(name = "MEASUREMENT_TYPE")
@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MeasurementType.findAll", query = "SELECT m FROM MeasurementType m"),
     @NamedQuery(name = "MeasurementType.findByTypeid", query = "SELECT m FROM MeasurementType m WHERE m.typeid = :typeid"),
     @NamedQuery(name = "MeasurementType.findByDescription", query = "SELECT m FROM MeasurementType m WHERE m.description = :description"),
-    @NamedQuery(name = "MeasurementType.findByMinvalue", query = "SELECT m FROM MeasurementType m WHERE m.minvalue = :minvalue"),
-    @NamedQuery(name = "MeasurementType.findByMaxvalue", query = "SELECT m FROM MeasurementType m WHERE m.maxvalue = :maxvalue"),
+    @NamedQuery(name = "MeasurementType.findByValuemin", query = "SELECT m FROM MeasurementType m WHERE m.valuemin = :valuemin"),
+    @NamedQuery(name = "MeasurementType.findByValuemax", query = "SELECT m FROM MeasurementType m WHERE m.valuemax = :valuemax"),
     @NamedQuery(name = "MeasurementType.findByUnit", query = "SELECT m FROM MeasurementType m WHERE m.unit = :unit")})
 public class MeasurementType implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,12 +50,12 @@ public class MeasurementType implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Column(name = "MINVALUE")
-    private BigDecimal minvalue;
+    @Column(name = "VALUEMIN")
+    private BigDecimal valuemin;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "MAXVALUE")
-    private BigDecimal maxvalue;
+    @Column(name = "VALUEMAX")
+    private BigDecimal valuemax;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -71,11 +71,11 @@ public class MeasurementType implements Serializable {
         this.typeid = typeid;
     }
 
-    public MeasurementType(Integer typeid, String description, BigDecimal minvalue, BigDecimal maxvalue, String unit) {
+    public MeasurementType(Integer typeid, String description, BigDecimal valuemin, BigDecimal valuemax, String unit) {
         this.typeid = typeid;
         this.description = description;
-        this.minvalue = minvalue;
-        this.maxvalue = maxvalue;
+        this.valuemin = valuemin;
+        this.valuemax = valuemax;
         this.unit = unit;
     }
 
@@ -95,20 +95,20 @@ public class MeasurementType implements Serializable {
         this.description = description;
     }
 
-    public BigDecimal getMinvalue() {
-        return minvalue;
+    public BigDecimal getValuemin() {
+        return valuemin;
     }
 
-    public void setMinvalue(BigDecimal minvalue) {
-        this.minvalue = minvalue;
+    public void setValuemin(BigDecimal valuemin) {
+        this.valuemin = valuemin;
     }
 
-    public BigDecimal getMaxvalue() {
-        return maxvalue;
+    public BigDecimal getValuemax() {
+        return valuemax;
     }
 
-    public void setMaxvalue(BigDecimal maxvalue) {
-        this.maxvalue = maxvalue;
+    public void setValuemax(BigDecimal valuemax) {
+        this.valuemax = valuemax;
     }
 
     public String getUnit() {
