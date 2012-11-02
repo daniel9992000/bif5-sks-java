@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.heli.scada.repo;
+package at.heli.scada.dal;
 
-import at.heli.scada.entities.MeasurementType;
+import at.heli.scada.entities.Installation;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,29 +16,29 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
-public class DbTypeRepository implements Repository<MeasurementType>{
+public class DbInstallationRepository implements Repository<Installation> {
     
     @PersistenceContext
     EntityManager em;
 
     @Override
-    public void save(MeasurementType entity) {
+    public void save(Installation entity) {
         em.persist(entity);
     }
 
     @Override
-    public void delete(MeasurementType entity) {
+    public void delete(Installation entity) {
         em.remove(entity);
     }
 
     @Override
-    public MeasurementType getById(int id) {
-        return em.find(MeasurementType.class, id);
+    public Installation getById(int id) {
+        return em.find(Installation.class, id);
     }
 
     @Override
-    public List<MeasurementType> getAll() {
-        Query q = em.createNamedQuery("MeasurementType.findAll");
+    public List<Installation> getAll() {
+        Query q = em.createNamedQuery("Installation.findAll");
         return q.getResultList();
     }
 

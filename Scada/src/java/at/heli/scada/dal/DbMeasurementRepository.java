@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.heli.scada.repo;
+package at.heli.scada.dal;
 
 import at.heli.scada.entities.Measurement;
 import java.util.List;

@@ -6,7 +6,7 @@ package at.heli.scada.servlets;
 
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Engineer;
-import at.heli.scada.repo.Repository;
+import at.heli.scada.dal.Repository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -23,9 +23,6 @@ public class CustomerServlet extends HttpServlet {
     
     @EJB(beanName="dbCustomer")
     Repository<Customer> bean;
-    
-    @EJB(beanName="dbEngineer")
-    Repository<Engineer> bean2;
 
     /**
      * Processes requests for both HTTP
@@ -51,21 +48,17 @@ public class CustomerServlet extends HttpServlet {
             out.println("<h1>Servlet CustomerServlet at " + request.getContextPath() + "</h1>");
             
             
-            Engineer e = bean2.getById(1);
-            
-            
-            Customer c = new Customer();
-            c.setPersonid(6);
-            c.setEmail("danielherzog@outlook.com");
-            c.setFirstname("Test");
-            c.setLastname("Tester");
-            c.setPassword("11234");
-            c.setUsername("tester");
-            c.setEngineerid(e);
-            bean.save(c);
+            Customer c = bean.getById(6);
+            bean.delete(c);
+            out.println("Deleted");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } 
+        catch(Exception e)
+        {
+            out.println(e);
+        }
+        finally {            
             out.close();
         }
     }

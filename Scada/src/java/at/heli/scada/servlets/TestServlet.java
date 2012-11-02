@@ -6,15 +6,11 @@ package at.heli.scada.servlets;
 
 import at.heli.scada.entities.Engineer;
 import at.heli.scada.entities.Person;
-import at.heli.scada.repo.DbEngineerRepository;
-import at.heli.scada.repo.Repository;
+import at.heli.scada.dal.Repository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,9 +57,18 @@ public class TestServlet extends HttpServlet {
                 out.println(e.getFirstname() + " " + e.getLastname());
                 out.println("<br />");
             }
+            
+            bean.delete(res.get(1));
+            
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+            
+        } 
+        catch(Exception e)
+            {
+                out.println(e);
+            }
+        finally {            
             out.close();
         }
     }
