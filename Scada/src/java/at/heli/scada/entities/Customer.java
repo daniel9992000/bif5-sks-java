@@ -44,6 +44,12 @@ public class Customer extends Person implements Serializable {
     private Collection<Installation> installationCollection;
 
     public Customer() {
+        super();
+    }
+    
+    public Customer(Integer personid)
+    {
+        super(personid);
     }
 
 

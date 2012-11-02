@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TestServlet extends HttpServlet {
 
-    @EJB(name="dbEngineer")
+    @EJB(beanName="dbEngineer")
     Repository<Engineer> bean;
     /**
      * Processes requests for both HTTP
@@ -54,13 +54,12 @@ public class TestServlet extends HttpServlet {
             
             
             
-            
             List<Engineer> res = bean.getAll();
-            
-            out.println(res.size());
             for(Person e : res)
             {
-                out.println(e);
+                out.println(e.getClass().getName());
+                out.println(e.getFirstname() + " " + e.getLastname());
+                out.println("<br />");
             }
             out.println("</body>");
             out.println("</html>");
