@@ -47,18 +47,14 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");            
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
             
-            
-            
-            
             List<Engineer> res = bean.getAll();
             for(Person e : res)
             {
-                out.println(e.getClass().getName());
-                out.println(e.getFirstname() + " " + e.getLastname());
+                out.println(e.getPersonid() + "   " + e.getFirstname() + " " + e.getLastname());
                 out.println("<br />");
             }
             
-            bean.delete(res.get(1));
+            bean.delete(bean.getById(3));
             
             out.println("</body>");
             out.println("</html>");

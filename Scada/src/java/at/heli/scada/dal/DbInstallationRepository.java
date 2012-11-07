@@ -22,24 +22,57 @@ public class DbInstallationRepository implements Repository<Installation> {
     EntityManager em;
 
     @Override
-    public void save(Installation entity) {
-        em.persist(entity);
+    public void save(Installation entity) throws DalException {
+        try
+        {
+            em.persist(entity);
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot save installation", err);
+        }
     }
 
     @Override
-    public void delete(Installation entity) {
-        em.remove(entity);
+    public void delete(Installation entity) throws DalException {
+        try
+        {
+            em.remove(entity);
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot delete installation", err);
+        }
     }
 
     @Override
-    public Installation getById(int id) {
-        return em.find(Installation.class, id);
+    public Installation getById(int id) throws DalException {
+        Installation i;
+        try
+        {
+            i = em.find(Installation.class, id);
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot find installation with id "+ id,  err);
+        }
+        return i;
     }
 
     @Override
-    public List<Installation> getAll() {
-        Query q = em.createNamedQuery("Installation.findAll");
-        return q.getResultList();
+    public List<Installation> getAll() throws DalException {
+        List<Installation> tmp;
+        try
+        {
+            Query q = em.createNamedQuery("Installation.findAll");
+            tmp = q.getResultList();
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot fetch all installations", err);
+        }
+        
+        return tmp;
     }
 
     // Add business logic below. (Right-click in editor and choose

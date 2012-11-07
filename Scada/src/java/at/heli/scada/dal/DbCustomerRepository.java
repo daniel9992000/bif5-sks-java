@@ -4,6 +4,7 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.bl.DbCustomer;
 import at.heli.scada.entities.Customer;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,6 +17,7 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless(name="dbCustomer")
+@DbCustomer
 public class DbCustomerRepository implements Repository<Customer> {
     
     @PersistenceContext
