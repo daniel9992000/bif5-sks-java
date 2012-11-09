@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Measurement.findAll", query = "SELECT m FROM Measurement m"),
     @NamedQuery(name = "Measurement.findByMeasid", query = "SELECT m FROM Measurement m WHERE m.measid = :measid"),
-    @NamedQuery(name = "Measurement.findByTimestamp", query = "SELECT m FROM Measurement m WHERE m.timestamp = :timestamp")})
+    @NamedQuery(name = "Measurement.findByTimestamp", query = "SELECT m FROM Measurement m WHERE m.timestamp = :timestamp"),
+    @NamedQuery(name = "Measurement.findByInstallation", query = "SELECT m FROM Measurement m WHERE m.installationid = :installationid")})
 public class Measurement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

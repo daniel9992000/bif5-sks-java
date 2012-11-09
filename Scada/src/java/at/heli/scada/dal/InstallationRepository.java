@@ -5,17 +5,16 @@
 package at.heli.scada.dal;
 
 import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.entities.Customer;
+import at.heli.scada.entities.Installation;
 import java.util.List;
 
 /**
  *
  * @author daniel
  */
-public interface Repository<T> {
+public interface InstallationRepository extends Repository<Installation> {
     
-    public void save(T entity) throws DalException;
-    public void delete(T entity) throws DalException;
-    public T getById(int id) throws DalException;
-    public List<T> getAll() throws DalException;
+    public List<Installation> getByCustomerId(Customer c) throws DalException;
     
 }

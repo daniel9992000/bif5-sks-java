@@ -4,7 +4,10 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,7 +19,7 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
-public class DbMeasurementRepository implements Repository<Measurement> {
+public class DbMeasurementRepository implements MeasurementRepository {
     
     @PersistenceContext
     EntityManager em;
@@ -42,7 +45,19 @@ public class DbMeasurementRepository implements Repository<Measurement> {
         return q.getResultList();
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public List<Measurement> getPerDay(Installation i, Calendar time) throws DalException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Measurement> getPerMonth(Installation i, Calendar time) throws DalException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Measurement> getPerYear(Installation i, Calendar time) throws DalException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

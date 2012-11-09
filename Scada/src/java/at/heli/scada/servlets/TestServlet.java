@@ -4,13 +4,20 @@
  */
 package at.heli.scada.servlets;
 
+import at.heli.scada.dal.qualifier.DbInstallationQualifier;
+import at.heli.scada.dal.qualifier.DbEngineerQualifier;
+import at.heli.scada.dal.qualifier.DbCustomerQualifier;
+import at.heli.scada.bl.*;
+import at.heli.scada.dal.*;
 import at.heli.scada.entities.Engineer;
 import at.heli.scada.entities.Person;
 import at.heli.scada.dal.Repository;
+import at.heli.scada.entities.Customer;
+import at.heli.scada.entities.Installation;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
+import java.math.BigDecimal;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +29,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TestServlet extends HttpServlet {
 
-    @EJB(beanName="dbEngineer")
-    Repository<Engineer> bean;
+    @Inject @DbCustomerQualifier
+    private Repository<Customer> cr;
+    
+    @Inject @DbEngineerQualifier
+    private Repository<Engineer> er;
+    
+    @Inject @DbInstallationQualifier
+    private InstallationRepository ir;
+   
+    CustomerService cbl;
+    
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -47,14 +64,13 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");            
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
             
-            List<Engineer> res = bean.getAll();
-            for(Person e : res)
-            {
-                out.println(e.getPersonid() + "   " + e.getFirstname() + " " + e.getLastname());
-                out.println("<br />");
-            }
+            cbl = new CustomerService(ir, cr);
             
-            bean.delete(bean.getById(3));
+            Customer c = cbl.getCustomer(10);
+            for(Installation i : cbl.getInstallations(c))
+            {
+                out.println(i);
+            }
             
             out.println("</body>");
             out.println("</html>");

@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Installation.findBySerialno", query = "SELECT i FROM Installation i WHERE i.serialno = :serialno"),
     @NamedQuery(name = "Installation.findByLongitude", query = "SELECT i FROM Installation i WHERE i.longitude = :longitude"),
     @NamedQuery(name = "Installation.findByLatitude", query = "SELECT i FROM Installation i WHERE i.latitude = :latitude"),
-    @NamedQuery(name = "Installation.findByDescription", query = "SELECT i FROM Installation i WHERE i.description = :description")})
+    @NamedQuery(name = "Installation.findByDescription", query = "SELECT i FROM Installation i WHERE i.description = :description"),
+    @NamedQuery(name = "Installation.findByCustomerId", query = "SELECT i FROM Installation i WHERE i.customerid = :customerid")})
 public class Installation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -4,6 +4,9 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.qualifier.DbInstallationQualifier;
+import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,7 +19,8 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
-public class DbInstallationRepository implements Repository<Installation> {
+@DbInstallationQualifier
+public class DbInstallationRepository implements InstallationRepository {
     
     @PersistenceContext
     EntityManager em;
@@ -75,7 +79,21 @@ public class DbInstallationRepository implements Repository<Installation> {
         return tmp;
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public List<Installation> getByCustomerId(Customer c) throws DalException {
+        List<Installation> tmp;
+        try
+        {
+            Query q = em.createNamedQuery("Installation.findByCustomerId");
+            q.setParameter("customerid", c);
+            tmp = q.getResultList();
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot fetch all installations", err);
+        }
+        
+        return tmp;
+    }
 
 }

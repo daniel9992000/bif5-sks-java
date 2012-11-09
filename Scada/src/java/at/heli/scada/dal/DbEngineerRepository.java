@@ -4,6 +4,8 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.qualifier.DbEngineerQualifier;
+import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.entities.Engineer;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -15,7 +17,8 @@ import javax.persistence.Query;
  *
  * @author daniel
  */
-@Stateless(name="dbEngineer")
+@Stateless
+@DbEngineerQualifier
 public class DbEngineerRepository implements Repository<Engineer> {
     
     @PersistenceContext
@@ -62,15 +65,15 @@ public class DbEngineerRepository implements Repository<Engineer> {
     }
 
     @Override
-    public Engineer getById(int id) throws DalException {
+    public Engineer getById(int personid) throws DalException {
         Engineer e;
         try
         {
-            e = em.find(Engineer.class, id);
+            e = em.find(Engineer.class, personid);
         }
         catch(Exception err)
         {
-            throw new DalException("cannot find engineer with id " + id, err);
+            throw new DalException("cannot find engineer with id " + personid, err);
         }
         return e;
     }
