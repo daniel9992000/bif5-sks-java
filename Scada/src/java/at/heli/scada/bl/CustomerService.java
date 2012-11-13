@@ -9,6 +9,7 @@ import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.bl.exception.BLException;
 import at.heli.scada.dal.*;
 import at.heli.scada.dal.exception.*;
+import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.validator.*;
@@ -25,9 +26,9 @@ public class CustomerService {
     private static final Logger log = Logger.getLogger(CustomerService.class.getName());
     
     private InstallationRepository irepo;
-    private Repository<Customer> crepo;
+    private CustomerRepository crepo;
     
-    public CustomerService(InstallationRepository irepo, Repository<Customer> crepo)
+    public CustomerService(InstallationRepository irepo, CustomerRepository crepo)
     {
         this.irepo = irepo;
         this.crepo = crepo;

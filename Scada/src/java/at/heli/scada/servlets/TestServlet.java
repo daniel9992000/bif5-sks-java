@@ -8,20 +8,16 @@ import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.dal.qualifier.*;
 import at.heli.scada.bl.*;
-import at.heli.scada.dal.*;
+import at.heli.scada.dal.interfaces.CustomerRepository;
+import at.heli.scada.dal.interfaces.EngineerRepository;
 import at.heli.scada.entities.Engineer;
 import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
-import at.heli.scada.entities.Measurement;
 import at.heli.scada.entities.MeasurementType;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigInteger;
 import java.sql.Date;
-import java.sql.Time;
-import java.util.Dictionary;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -37,10 +33,10 @@ import javax.servlet.http.HttpServletResponse;
 public class TestServlet extends HttpServlet {
 
     @Inject @DbCustomerQualifier
-    private Repository<Customer> cr;
+    private CustomerRepository cr;
     
     @Inject @DbEngineerQualifier
-    private Repository<Engineer> er;
+    private EngineerRepository er;
     
     @Inject @DbInstallationQualifier
     private InstallationRepository ir;
@@ -82,13 +78,13 @@ public class TestServlet extends HttpServlet {
             sbl = new StatisticService(mr, ir, cr);
             
             MeasurementType mt = mtr.getById(1);
-            ExecutionResult<Customer> c = cbl.getCustomer(6);
+            ExecutionResult<Customer> c = cbl.getCustomer(1);
             Installation i = ir.getById(1);
            
             
             if(c.getAffectedObject() == null)
             {
-                out.println("Kunde mit ID 6 existiert nicht");
+                out.println("Kunde mit ID 1 existiert nicht");
             }
             else
             {

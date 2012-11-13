@@ -4,10 +4,11 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.dal.interfaces.Repository;
-import at.heli.scada.dal.qualifier.DbCustomerQualifier;
 import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.CustomerRepository;
+import at.heli.scada.dal.qualifier.DbCustomerQualifier;
 import at.heli.scada.entities.Customer;
+import at.heli.scada.entities.Engineer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
  */
 @Stateless
 @DbCustomerQualifier
-public class DbCustomerRepository implements Repository<Customer> {
+public class DbCustomerRepository implements CustomerRepository {
     
     @PersistenceContext
     EntityManager em;
@@ -76,6 +77,23 @@ public class DbCustomerRepository implements Repository<Customer> {
         {
             throw new DalException("cannot fetch all customer", err);
         }
+        return tmp;
+    }
+
+    @Override
+    public List<Customer> getByEngineerId(Engineer entity) throws DalException {
+        List<Customer> tmp = null;
+        try
+        {
+            Query q = em.createNamedQuery("Engineer.findByCustomer");
+            q.setParameter("engineerid", entity);
+            tmp = q.getResultList();
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot fetch all customers", err);
+        }
+        
         return tmp;
     }
 }

@@ -52,7 +52,7 @@ public class DbInstallationRepository implements InstallationRepository {
 
     @Override
     public Installation getById(int id) throws DalException {
-        Installation i;
+        Installation i = null;
         try
         {
             i = em.find(Installation.class, id);
@@ -66,7 +66,7 @@ public class DbInstallationRepository implements InstallationRepository {
 
     @Override
     public List<Installation> getAll() throws DalException {
-        List<Installation> tmp;
+        List<Installation> tmp = null;
         try
         {
             Query q = em.createNamedQuery("Installation.findAll");
@@ -82,7 +82,7 @@ public class DbInstallationRepository implements InstallationRepository {
 
     @Override
     public List<Installation> getByCustomerId(Customer c) throws DalException {
-        List<Installation> tmp;
+        List<Installation> tmp = null;
         try
         {
             Query q = em.createNamedQuery("Installation.findByCustomerId");

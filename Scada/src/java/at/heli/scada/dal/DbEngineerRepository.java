@@ -7,6 +7,8 @@ package at.heli.scada.dal;
 import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.dal.qualifier.DbEngineerQualifier;
 import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.EngineerRepository;
+import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Engineer;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,7 +22,7 @@ import javax.persistence.Query;
  */
 @Stateless
 @DbEngineerQualifier
-public class DbEngineerRepository implements Repository<Engineer> {
+public class DbEngineerRepository implements EngineerRepository {
     
     @PersistenceContext
     EntityManager em;
@@ -51,7 +53,7 @@ public class DbEngineerRepository implements Repository<Engineer> {
 
     @Override
     public List<Engineer> getAll() throws DalException {
-        List<Engineer> tmp;
+        List<Engineer> tmp = null;
         
         try
         {
@@ -67,7 +69,7 @@ public class DbEngineerRepository implements Repository<Engineer> {
 
     @Override
     public Engineer getById(int personid) throws DalException {
-        Engineer e;
+        Engineer e = null;
         try
         {
             e = em.find(Engineer.class, personid);
@@ -78,5 +80,4 @@ public class DbEngineerRepository implements Repository<Engineer> {
         }
         return e;
     }
-
 }

@@ -10,6 +10,7 @@ import at.heli.scada.dal.MockCustomerRepository;
 import at.heli.scada.dal.MockInstallationRepository;
 import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import java.math.BigInteger;
@@ -28,7 +29,7 @@ import static org.junit.Assert.*;
  */
 public class CustomerServiceTest {
     
-    static Repository<Customer> crepo;
+    static CustomerRepository crepo;
     static InstallationRepository irepo;
     
     public CustomerServiceTest() {

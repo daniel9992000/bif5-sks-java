@@ -9,6 +9,7 @@ import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
@@ -31,9 +32,9 @@ public class StatisticService {
     
     private MeasurementRepository mrepo;
     private InstallationRepository irepo;
-    private Repository<Customer> crepo;
+    private CustomerRepository crepo;
     
-    public StatisticService(MeasurementRepository mrepo, InstallationRepository irepo, Repository<Customer> crepo)
+    public StatisticService(MeasurementRepository mrepo, InstallationRepository irepo, CustomerRepository crepo)
     {
         this.mrepo = mrepo;
         this.irepo = irepo;

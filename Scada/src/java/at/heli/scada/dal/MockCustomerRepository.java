@@ -7,7 +7,9 @@ package at.heli.scada.dal;
 import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.dal.qualifier.MockCustomerQualifier;
 import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
+import at.heli.scada.entities.Engineer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
  * @author daniel
  */
 @MockCustomerQualifier
-public class MockCustomerRepository implements Repository<Customer> {
+public class MockCustomerRepository implements CustomerRepository {
     
     List<Customer> customers;
     
@@ -56,6 +58,19 @@ public class MockCustomerRepository implements Repository<Customer> {
     @Override
     public List<Customer> getAll() throws DalException {
         return customers;
+    }
+
+    @Override
+    public List<Customer> getByEngineerId(Engineer entity) throws DalException {
+        List<Customer> tmp = new ArrayList<Customer>();
+        
+        for(Customer c : customers)
+        {
+            if(c.getEngineerid() == entity) {
+                tmp.add(c);
+            }
+        }
+        return tmp;
     }
     
 }
