@@ -4,11 +4,13 @@
  */
 package at.heli.scada.servlets;
 
+import at.heli.scada.dal.interfaces.InstallationRepository;
+import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.dal.qualifier.*;
 import at.heli.scada.bl.*;
 import at.heli.scada.dal.*;
 import at.heli.scada.entities.Engineer;
-import at.heli.scada.dal.Repository;
+import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;

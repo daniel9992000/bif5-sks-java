@@ -55,12 +55,13 @@ public class CustomerValidator implements Validator<Customer> {
            valid=false;
            errors.add(new ValidationError("Username is required!", "username"));
        }
+       
        if(obj.getPassword().isEmpty())
        {
            valid=false;
            errors.add(new ValidationError("Password is required!", "password"));
        }
-       if(obj.getPassword().length() <= 6 )
+       else if(obj.getPassword().length() <= 6 )
        {
            valid=false;
            errors.add(new ValidationError("Password must be longer than 6 signs", "password"));

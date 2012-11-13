@@ -4,6 +4,7 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.dal.qualifier.MockCustomerQualifier;
 import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.entities.Customer;
@@ -22,6 +23,13 @@ public class MockCustomerRepository implements Repository<Customer> {
     public MockCustomerRepository()
     {
         customers = new ArrayList<Customer>();
+        Customer tmp = new Customer(1);
+        tmp.setEmail("danielherzog@gmx.at");
+        tmp.setFirstname("Daniel");
+        tmp.setLastname("Herzog");
+        tmp.setPassword("1234567");
+        tmp.setUsername("daniel");
+        customers.add(tmp);
     }
 
     @Override

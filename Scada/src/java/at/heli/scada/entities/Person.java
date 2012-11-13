@@ -79,6 +79,11 @@ public class Person implements Serializable {
     private String email;
 
     public Person() {
+        this.firstname = "";
+        this.lastname = "";
+        this.username = "";
+        this.password = "";
+        this.email = "";
     }
 
     public Person(Integer personid) {

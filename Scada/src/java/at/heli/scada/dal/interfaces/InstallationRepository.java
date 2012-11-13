@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.heli.scada.dal;
+package at.heli.scada.dal.interfaces;
 
 import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.entities.Customer;

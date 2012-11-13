@@ -4,6 +4,8 @@
  */
 package at.heli.scada.bl;
 
+import at.heli.scada.dal.interfaces.InstallationRepository;
+import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.bl.exception.BLException;
 import at.heli.scada.dal.*;
 import at.heli.scada.dal.exception.*;
@@ -82,14 +84,14 @@ public class CustomerService {
         }
     }
     
-    public List<Installation> getInstallations(Customer c) throws BLException
+    public ExecutionResult<List<Installation>> getInstallations(Customer c) throws BLException
     {
         List<Installation> tmp;
         try
         {
             tmp = irepo.getByCustomerId(c);
             
-            return tmp;
+            return new ExecutionResult<List<Installation>>(tmp);
         }
         catch(DalException err)
         {

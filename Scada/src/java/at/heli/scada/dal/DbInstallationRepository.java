@@ -4,6 +4,7 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.qualifier.DbInstallationQualifier;
 import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.entities.Customer;

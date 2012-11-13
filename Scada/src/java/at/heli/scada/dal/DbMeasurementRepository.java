@@ -4,6 +4,7 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.bl.InstallationState;
 import at.heli.scada.bl.Statistic;
 import at.heli.scada.dal.qualifier.DbMeasurementQualifier;
