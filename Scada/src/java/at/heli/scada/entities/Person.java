@@ -5,6 +5,7 @@
 package at.heli.scada.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,11 +15,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Person.findByPassword", query = "SELECT p FROM Person p WHERE p.password = :password"),
     @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email")})
 public class Person implements Serializable {
+    @Size(max = 31)
+    @Column(name = "DTYPE")
+    private String dtype;
+    @OneToMany(mappedBy = "customerid")
+    private Collection<Installation> installationCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -157,6 +165,23 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         return "at.heli.scada.entities.Person[ personid=" + personid + " ]";
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
+    }
+
+    @XmlTransient
+    public Collection<Installation> getInstallationCollection() {
+        return installationCollection;
+    }
+
+    public void setInstallationCollection(Collection<Installation> installationCollection) {
+        this.installationCollection = installationCollection;
     }
     
 }

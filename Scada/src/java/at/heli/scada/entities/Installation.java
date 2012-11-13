@@ -6,6 +6,7 @@ package at.heli.scada.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -39,6 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Installation.findByDescription", query = "SELECT i FROM Installation i WHERE i.description = :description"),
     @NamedQuery(name = "Installation.findByCustomerId", query = "SELECT i FROM Installation i WHERE i.customerid = :customerid")})
 public class Installation implements Serializable {
+    @Column(name = "LATITUDE")
+    private BigInteger latitude;
+    @Column(name = "LONGITUDE")
+    private BigInteger longitude;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -48,11 +53,6 @@ public class Installation implements Serializable {
     @Size(max = 40)
     @Column(name = "SERIALNO")
     private String serialno;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "LONGITUDE")
-    private BigDecimal longitude;
-    @Column(name = "LATITUDE")
-    private BigDecimal latitude;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
@@ -90,22 +90,6 @@ public class Installation implements Serializable {
 
     public void setSerialno(String serialno) {
         this.serialno = serialno;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
     }
 
     public String getDescription() {
@@ -156,6 +140,22 @@ public class Installation implements Serializable {
     @Override
     public String toString() {
         return "at.heli.scada.entities.Installation[ installationid=" + installationid + " ]";
+    }
+
+    public BigInteger getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigInteger latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigInteger getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigInteger longitude) {
+        this.longitude = longitude;
     }
     
 }

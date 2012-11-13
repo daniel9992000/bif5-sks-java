@@ -18,7 +18,7 @@ import java.util.ListIterator;
 public class CustomerValidator implements Validator<Customer> {
 
     private boolean valid;
-    private List<String> errors; 
+    private List<ValidationError> errors; 
     
     @Override
     public boolean isValid() {
@@ -26,7 +26,7 @@ public class CustomerValidator implements Validator<Customer> {
     }
     
     @Override
-    public List<String> getErrors() {
+    public List<ValidationError> getErrors() {
         return errors;
     }
 
@@ -38,32 +38,32 @@ public class CustomerValidator implements Validator<Customer> {
        if(obj.getFirstname().isEmpty())
        {
            valid=false;
-           errors.add("Firstname is required!");
+           errors.add(new ValidationError("Firstname is required!", "firstname"));
        }
        if(obj.getLastname().isEmpty())
        {
            valid=false;
-           errors.add("Lastname is required!");
+           errors.add(new ValidationError("Lastname is required!", "lastname"));
        }
        if(obj.getEmail().isEmpty())
        {
            valid=false;
-           errors.add("E-Mail is required!");
+           errors.add(new ValidationError("E-Mail is required!", "email"));
        }
        if(obj.getUsername().isEmpty())
        {
            valid=false;
-           errors.add("Username is required!");
+           errors.add(new ValidationError("Username is required!", "username"));
        }
        if(obj.getPassword().isEmpty())
        {
            valid=false;
-           errors.add("Password is required!");
+           errors.add(new ValidationError("Password is required!", "password"));
        }
        if(obj.getPassword().length() <= 6 )
        {
            valid=false;
-           errors.add("Password must be longer than 6 signs");
+           errors.add(new ValidationError("Password must be longer than 6 signs", "password"));
        }
     }
 }

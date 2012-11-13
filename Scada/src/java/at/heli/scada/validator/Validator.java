@@ -13,6 +13,6 @@ import java.util.List;
 public interface Validator<T> {
     
     public boolean isValid();
-    public List<String> getErrors();
+    public List<ValidationError> getErrors();
     public void validate(T obj);
 }

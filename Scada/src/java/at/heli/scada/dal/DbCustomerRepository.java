@@ -50,7 +50,7 @@ public class DbCustomerRepository implements Repository<Customer> {
 
     @Override
     public Customer getById(int id) throws DalException {
-        Customer c;
+        Customer c = null;
         try
         {
            c = em.find(Customer.class, id); 
@@ -64,7 +64,7 @@ public class DbCustomerRepository implements Repository<Customer> {
 
     @Override
     public List<Customer> getAll() throws DalException {
-        List<Customer> tmp;
+        List<Customer> tmp = null;
         
         try
         {

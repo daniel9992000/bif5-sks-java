@@ -5,12 +5,11 @@
 package at.heli.scada.bl;
 
 import at.heli.scada.bl.exception.BLException;
-import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.dal.*;
+import at.heli.scada.dal.exception.*;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
-import at.heli.scada.validator.CustomerValidator;
-import at.heli.scada.validator.Validator;
+import at.heli.scada.validator.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +31,7 @@ public class CustomerService {
         this.crepo = crepo;
     }
     
-    public void createCustomer(Customer c) throws BLException
+    public ExecutionResult<Customer> createCustomer(Customer c) throws BLException
     {
         try
         {
@@ -43,14 +42,21 @@ public class CustomerService {
             {
                 crepo.save(c);
                 log.log(Level.INFO, "Customer saved!");
+                return new ExecutionResult<Customer>(c);
             }
             else
             {
-                log.log(Level.SEVERE, "Validation failed");
-                for(String error : validator.getErrors())
+                log.log(Level.INFO, "{0} Validation errors", validator.getErrors().size());
+                for(ValidationError ve : validator.getErrors())
                 {
-                    
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Error on property ");
+                    sb.append(ve.getField());
+                    sb.append(": ");
+                    sb.append(ve.getMessage());
+                    log.log(Level.INFO, sb.toString());
                 }
+                return new ExecutionResult<Customer>(c, validator.getErrors());
             }
         }
         catch(DalException err)
@@ -60,19 +66,20 @@ public class CustomerService {
         }
     }
     
-    public Customer getCustomer(int id) throws BLException
+    public ExecutionResult<Customer> getCustomer(int id) throws BLException
     {
         Customer tmp;
         try
         {
+            log.log(Level.INFO, "Fetching customer id {0}", id);
             tmp = crepo.getById(id);
+            return new ExecutionResult<Customer>(tmp);
         }
         catch(DalException err)
         {
-            throw new BLException();
+            log.log(Level.SEVERE, "Cannot fetch customer id " + id, err);
+            throw new BLException("Cannot fetch customer", err);
         }
-        
-        return tmp;
     }
     
     public List<Installation> getInstallations(Customer c) throws BLException
@@ -81,12 +88,13 @@ public class CustomerService {
         try
         {
             tmp = irepo.getByCustomerId(c);
+            
+            return tmp;
         }
         catch(DalException err)
         {
             throw new BLException();
         }
         
-        return tmp;
     }
 }

@@ -4,6 +4,7 @@
  */
 package at.heli.scada.dal;
 
+import at.heli.scada.dal.qualifier.DbTypeQualifier;
 import at.heli.scada.entities.MeasurementType;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,6 +17,7 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
+@DbTypeQualifier
 public class DbTypeRepository implements Repository<MeasurementType>{
     
     @PersistenceContext

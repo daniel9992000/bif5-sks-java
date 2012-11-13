@@ -5,6 +5,7 @@
 package at.heli.scada.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,24 +30,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Measurement.findAll", query = "SELECT m FROM Measurement m"),
     @NamedQuery(name = "Measurement.findByMeasid", query = "SELECT m FROM Measurement m WHERE m.measid = :measid"),
-    @NamedQuery(name = "Measurement.findByTimestamp", query = "SELECT m FROM Measurement m WHERE m.timestamp = :timestamp"),
-    @NamedQuery(name = "Measurement.findByInstallation", query = "SELECT m FROM Measurement m WHERE m.installationid = :installationid")})
+    @NamedQuery(name = "Measurement.findByMeasuredate", query = "SELECT m FROM Measurement m WHERE m.measuredate = :measuredate"),
+    @NamedQuery(name = "Measurement.findByMeasuretime", query = "SELECT m FROM Measurement m WHERE m.measuretime = :measuretime")})
 public class Measurement implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "MEASUREVALUE")
+    private Double measurevalue;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "MEASID")
     private Integer measid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TIMESTAMP")
-    private int timestamp;
+    @Column(name = "MEASUREDATE")
+    @Temporal(TemporalType.DATE)
+    private Date measuredate;
+    @Column(name = "MEASURETIME")
+    @Temporal(TemporalType.TIME)
+    private Date measuretime;
     @JoinColumn(name = "TYPEID", referencedColumnName = "TYPEID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private MeasurementType typeid;
     @JoinColumn(name = "INSTALLATIONID", referencedColumnName = "INSTALLATIONID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Installation installationid;
 
     public Measurement() {
@@ -52,11 +60,6 @@ public class Measurement implements Serializable {
 
     public Measurement(Integer measid) {
         this.measid = measid;
-    }
-
-    public Measurement(Integer measid, int timestamp) {
-        this.measid = measid;
-        this.timestamp = timestamp;
     }
 
     public Integer getMeasid() {
@@ -67,12 +70,20 @@ public class Measurement implements Serializable {
         this.measid = measid;
     }
 
-    public int getTimestamp() {
-        return timestamp;
+    public Date getMeasuredate() {
+        return measuredate;
     }
 
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
+    public void setMeasuredate(Date measuredate) {
+        this.measuredate = measuredate;
+    }
+
+    public Date getMeasuretime() {
+        return measuretime;
+    }
+
+    public void setMeasuretime(Date measuretime) {
+        this.measuretime = measuretime;
     }
 
     public MeasurementType getTypeid() {
@@ -114,6 +125,14 @@ public class Measurement implements Serializable {
     @Override
     public String toString() {
         return "at.heli.scada.entities.Measurement[ measid=" + measid + " ]";
+    }
+
+    public Double getMeasurevalue() {
+        return measurevalue;
+    }
+
+    public void setMeasurevalue(Double measurevalue) {
+        this.measurevalue = measurevalue;
     }
     
 }

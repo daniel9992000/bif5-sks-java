@@ -6,6 +6,7 @@ package at.heli.scada.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -36,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MeasurementType.findByValuemax", query = "SELECT m FROM MeasurementType m WHERE m.valuemax = :valuemax"),
     @NamedQuery(name = "MeasurementType.findByUnit", query = "SELECT m FROM MeasurementType m WHERE m.unit = :unit")})
 public class MeasurementType implements Serializable {
+    @Column(name = "VALUEMAX")
+    private Double valuemax;
+    @Column(name = "VALUEMIN")
+    private Double valuemin;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,15 +52,6 @@ public class MeasurementType implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "DESCRIPTION")
     private String description;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALUEMIN")
-    private BigDecimal valuemin;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALUEMAX")
-    private BigDecimal valuemax;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -71,7 +67,7 @@ public class MeasurementType implements Serializable {
         this.typeid = typeid;
     }
 
-    public MeasurementType(Integer typeid, String description, BigDecimal valuemin, BigDecimal valuemax, String unit) {
+    public MeasurementType(Integer typeid, String description, Double valuemin, Double valuemax, String unit) {
         this.typeid = typeid;
         this.description = description;
         this.valuemin = valuemin;
@@ -93,22 +89,6 @@ public class MeasurementType implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public BigDecimal getValuemin() {
-        return valuemin;
-    }
-
-    public void setValuemin(BigDecimal valuemin) {
-        this.valuemin = valuemin;
-    }
-
-    public BigDecimal getValuemax() {
-        return valuemax;
-    }
-
-    public void setValuemax(BigDecimal valuemax) {
-        this.valuemax = valuemax;
     }
 
     public String getUnit() {
@@ -151,6 +131,22 @@ public class MeasurementType implements Serializable {
     @Override
     public String toString() {
         return "at.heli.scada.entities.MeasurementType[ typeid=" + typeid + " ]";
+    }
+
+    public Double getValuemax() {
+        return valuemax;
+    }
+
+    public void setValuemax(Double valuemax) {
+        this.valuemax = valuemax;
+    }
+
+    public Double getValuemin() {
+        return valuemin;
+    }
+
+    public void setValuemin(Double valuemin) {
+        this.valuemin = valuemin;
     }
     
 }

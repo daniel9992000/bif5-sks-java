@@ -13,8 +13,12 @@ import java.util.List;
  *
  * @author daniel
  */
-public interface InstallationRepository extends Repository<Installation> {
+public interface InstallationRepository {
     
+    public void save(Installation entity) throws DalException;
+    public void delete(Installation entity) throws DalException;
+    public Installation getById(int id) throws DalException;
+    public List<Installation> getAll() throws DalException;
     public List<Installation> getByCustomerId(Customer c) throws DalException;
     
 }
