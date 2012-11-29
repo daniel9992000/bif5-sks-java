@@ -6,7 +6,7 @@ package at.heli.scada.dal;
 
 import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.qualifier.DbInstallationQualifier;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import java.util.List;
@@ -92,6 +92,24 @@ public class DbInstallationRepository implements InstallationRepository {
         catch(Exception err)
         {
             throw new DalException("cannot fetch all installations", err);
+        }
+        
+        return tmp;
+    }
+
+    @Override
+    public Installation getBySerialNo(String serialno) throws DalException {
+        Installation tmp = null;
+        
+        try
+        {
+            Query q = em.createNamedQuery("Installation.findBySerialno");
+            q.setParameter("serialno", serialno);
+            tmp = (Installation)q.getSingleResult();
+        }
+        catch(Exception err)
+        {
+            throw new DalException("cannot fetch installation with serialno " + serialno, err);
         }
         
         return tmp;

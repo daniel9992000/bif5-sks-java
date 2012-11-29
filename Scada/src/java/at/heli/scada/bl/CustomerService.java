@@ -4,11 +4,11 @@
  */
 package at.heli.scada.bl;
 
+import at.heli.scada.dal.interfaces.DalException;
+import at.heli.scada.bl.interfaces.ExecutionResult;
 import at.heli.scada.dal.interfaces.InstallationRepository;
-import at.heli.scada.dal.interfaces.Repository;
-import at.heli.scada.bl.exception.BLException;
-import at.heli.scada.dal.*;
-import at.heli.scada.dal.exception.*;
+import at.heli.scada.bl.interfaces.BLException;
+import at.heli.scada.bl.interfaces.ICustomerService;
 import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author daniel
  */
-public class CustomerService {
+public class CustomerService implements ICustomerService {
     
     private static final Logger log = Logger.getLogger(CustomerService.class.getName());
     
@@ -34,6 +34,7 @@ public class CustomerService {
         this.crepo = crepo;
     }
     
+    @Override
     public ExecutionResult<Customer> createCustomer(Customer c) throws BLException
     {
         try
@@ -69,13 +70,20 @@ public class CustomerService {
         }
     }
     
+    @Override
     public ExecutionResult<Customer> getCustomer(int id) throws BLException
     {
-        Customer tmp;
+        Customer tmp = null;
         try
         {
             log.log(Level.INFO, "Fetching customer id {0}", id);
             tmp = crepo.getById(id);
+            
+            if(tmp == null)
+            {
+                throw new BLException("customer with id " + id + " does not exist!");
+            }
+            
             return new ExecutionResult<Customer>(tmp);
         }
         catch(DalException err)
@@ -85,6 +93,7 @@ public class CustomerService {
         }
     }
     
+    @Override
     public ExecutionResult<List<Installation>> getInstallations(Customer c) throws BLException
     {
         List<Installation> tmp;

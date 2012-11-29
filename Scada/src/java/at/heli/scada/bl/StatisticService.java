@@ -4,29 +4,32 @@
  */
 package at.heli.scada.bl;
 
-import at.heli.scada.bl.exception.BLException;
+import at.heli.scada.entities.Statistic;
+import at.heli.scada.entities.InstallationState;
+import at.heli.scada.bl.interfaces.ExecutionResult;
+import at.heli.scada.bl.interfaces.BLException;
+import at.heli.scada.bl.interfaces.IStatisticService;
 import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
-import at.heli.scada.dal.interfaces.Repository;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author daniel
  */
-public class StatisticService {
+@ApplicationScoped
+public class StatisticService implements IStatisticService {
     
     private static final Logger log = Logger.getLogger(StatisticService.class.getName());
     

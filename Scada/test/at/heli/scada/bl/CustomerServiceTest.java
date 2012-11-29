@@ -4,15 +4,16 @@
  */
 package at.heli.scada.bl;
 
-import at.heli.scada.bl.exception.BLException;
+import at.heli.scada.bl.interfaces.ExecutionResult;
+import at.heli.scada.bl.interfaces.BLException;
 import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.MockCustomerRepository;
 import at.heli.scada.dal.MockInstallationRepository;
-import at.heli.scada.dal.interfaces.Repository;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import junit.framework.Assert;
@@ -21,7 +22,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -182,8 +182,8 @@ public class CustomerServiceTest {
         i.setCustomerid(c);
         i.setDescription("Heizung");
         i.setInstallationid(1);
-        i.setLatitude(BigInteger.ZERO);
-        i.setLongitude(BigInteger.ZERO);
+        i.setLatitude(BigDecimal.ZERO);
+        i.setLongitude(BigDecimal.ZERO);
         i.setSerialno("1234567890");
         irepo.save(i);
         

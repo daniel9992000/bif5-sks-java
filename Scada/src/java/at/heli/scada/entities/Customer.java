@@ -6,6 +6,7 @@ package at.heli.scada.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class Customer extends Person implements Serializable {
     @ManyToOne(optional = false)
     private Engineer engineerid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerid")
-    private Collection<Installation> installationCollection;
+    private List<Installation> installationCollection;
 
     public Customer() {
         super();
@@ -71,11 +72,11 @@ public class Customer extends Person implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Installation> getInstallationCollection() {
+    public List<Installation> getInstallationCollection() {
         return installationCollection;
     }
 
-    public void setInstallationCollection(Collection<Installation> installationCollection) {
+    public void setInstallationCollection(List<Installation> installationCollection) {
         this.installationCollection = installationCollection;
     }
 

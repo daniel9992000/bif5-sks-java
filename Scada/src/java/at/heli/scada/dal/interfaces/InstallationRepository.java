@@ -4,7 +4,6 @@
  */
 package at.heli.scada.dal.interfaces;
 
-import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
 import java.util.List;
@@ -20,5 +19,6 @@ public interface InstallationRepository {
     public Installation getById(int id) throws DalException;
     public List<Installation> getAll() throws DalException;
     public List<Installation> getByCustomerId(Customer c) throws DalException;
+    public Installation getBySerialNo(String serialno) throws DalException;
     
 }

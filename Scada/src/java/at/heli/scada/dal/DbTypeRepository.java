@@ -4,7 +4,8 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.dal.interfaces.Repository;
+import at.heli.scada.dal.interfaces.DalException;
+import at.heli.scada.dal.interfaces.TypeRepository;
 import at.heli.scada.dal.qualifier.DbTypeQualifier;
 import at.heli.scada.entities.MeasurementType;
 import java.util.List;
@@ -19,33 +20,29 @@ import javax.persistence.Query;
  */
 @Stateless
 @DbTypeQualifier
-public class DbTypeRepository implements Repository<MeasurementType>{
+public class DbTypeRepository implements TypeRepository {
     
     @PersistenceContext
     EntityManager em;
 
     @Override
-    public void save(MeasurementType entity) {
+    public void save(MeasurementType entity) throws DalException {
         em.persist(entity);
     }
 
     @Override
-    public void delete(MeasurementType entity) {
+    public void delete(MeasurementType entity) throws DalException {
         em.remove(entity);
     }
 
     @Override
-    public MeasurementType getById(int id) {
+    public MeasurementType getById(int id) throws DalException {
         return em.find(MeasurementType.class, id);
     }
 
     @Override
-    public List<MeasurementType> getAll() {
+    public List<MeasurementType> getAll() throws DalException {
         Query q = em.createNamedQuery("MeasurementType.findAll");
         return q.getResultList();
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
 }

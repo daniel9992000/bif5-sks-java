@@ -6,10 +6,13 @@ package at.heli.scada.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -43,12 +46,14 @@ public class Person implements Serializable {
     @Size(max = 31)
     @Column(name = "DTYPE")
     private String dtype;
+    
     @OneToMany(mappedBy = "customerid")
-    private Collection<Installation> installationCollection;
+    private List<Installation> installationCollection;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PERSONID")
     private Integer personid;
     @Basic(optional = false)
@@ -179,13 +184,15 @@ public class Person implements Serializable {
     public void setDtype(String dtype) {
         this.dtype = dtype;
     }
-
+    
     @XmlTransient
-    public Collection<Installation> getInstallationCollection() {
+    public List<Installation> getInstallationCollection()
+    {
         return installationCollection;
     }
-
-    public void setInstallationCollection(Collection<Installation> installationCollection) {
+    
+    public void setInstallationCollection(List<Installation> installationCollection)
+    {
         this.installationCollection = installationCollection;
     }
     

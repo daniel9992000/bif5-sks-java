@@ -4,9 +4,8 @@
  */
 package at.heli.scada.dal.interfaces;
 
-import at.heli.scada.bl.InstallationState;
-import at.heli.scada.bl.Statistic;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.entities.InstallationState;
+import at.heli.scada.entities.Statistic;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
 import java.util.Date;

@@ -4,7 +4,7 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.EngineerRepository;
 import at.heli.scada.entities.Engineer;
 import java.util.ArrayList;

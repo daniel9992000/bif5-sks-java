@@ -4,7 +4,6 @@
  */
 package at.heli.scada.dal.interfaces;
 
-import at.heli.scada.dal.exception.DalException;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Engineer;
 import java.util.List;

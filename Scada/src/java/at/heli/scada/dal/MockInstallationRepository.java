@@ -4,7 +4,7 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
@@ -63,6 +63,11 @@ public class MockInstallationRepository implements InstallationRepository {
         }
         
         return tmp;
+    }
+
+    @Override
+    public Installation getBySerialNo(String serialno) throws DalException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

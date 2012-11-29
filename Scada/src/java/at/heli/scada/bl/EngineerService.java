@@ -4,8 +4,9 @@
  */
 package at.heli.scada.bl;
 
-import at.heli.scada.bl.exception.BLException;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.bl.interfaces.ExecutionResult;
+import at.heli.scada.bl.interfaces.BLException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.dal.interfaces.EngineerRepository;
 import at.heli.scada.entities.Customer;

@@ -4,19 +4,22 @@
  */
 package at.heli.scada.servlets;
 
+import at.heli.scada.entities.Statistic;
+import at.heli.scada.bl.interfaces.ExecutionResult;
 import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.dal.qualifier.*;
 import at.heli.scada.bl.*;
 import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.dal.interfaces.EngineerRepository;
-import at.heli.scada.entities.Engineer;
-import at.heli.scada.dal.interfaces.Repository;
+import at.heli.scada.dal.interfaces.TypeRepository;
 import at.heli.scada.entities.Customer;
+import at.heli.scada.entities.Engineer;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.MeasurementType;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +48,7 @@ public class TestServlet extends HttpServlet {
     private MeasurementRepository mr;
     
     @Inject @DbTypeQualifier
-    private Repository<MeasurementType> mtr;
+    private TypeRepository mtr;
    
     CustomerService cbl;
     StatisticService sbl;
@@ -77,7 +80,18 @@ public class TestServlet extends HttpServlet {
             cbl = new CustomerService(ir, cr);
             sbl = new StatisticService(mr, ir, cr);
             
-            MeasurementType mt = mtr.getById(1);
+            Engineer e = er.getById(1);
+            
+            ExecutionResult<Customer> resCustomer = cbl.getCustomer(2);
+            
+            MeasurementType mt = new MeasurementType();
+            mt.setDescription("Innentemperatur");
+            mt.setUnit("°C");
+            mt.setValuemax(BigDecimal.valueOf(50.00));
+            mt.setValuemin(BigDecimal.valueOf(-10.00));
+            mtr.save(mt);
+            
+            //MeasurementType mt = mtr.getById(1);
             ExecutionResult<Customer> c = cbl.getCustomer(1);
             Installation i = ir.getById(1);
            

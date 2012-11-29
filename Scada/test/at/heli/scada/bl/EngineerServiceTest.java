@@ -4,6 +4,7 @@
  */
 package at.heli.scada.bl;
 
+import at.heli.scada.bl.interfaces.ExecutionResult;
 import at.heli.scada.dal.MockCustomerRepository;
 import at.heli.scada.dal.MockEngineerRepository;
 import at.heli.scada.dal.interfaces.CustomerRepository;

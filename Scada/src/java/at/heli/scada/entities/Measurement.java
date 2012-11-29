@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,45 +31,58 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Measurement.findAll", query = "SELECT m FROM Measurement m"),
-    @NamedQuery(name = "Measurement.findByMeasid", query = "SELECT m FROM Measurement m WHERE m.measid = :measid"),
+    @NamedQuery(name = "Measurement.findByMeasureid", query = "SELECT m FROM Measurement m WHERE m.measureid = :measureid"),
     @NamedQuery(name = "Measurement.findByMeasuredate", query = "SELECT m FROM Measurement m WHERE m.measuredate = :measuredate"),
-    @NamedQuery(name = "Measurement.findByMeasuretime", query = "SELECT m FROM Measurement m WHERE m.measuretime = :measuretime")})
+    @NamedQuery(name = "Measurement.findByMeasuretime", query = "SELECT m FROM Measurement m WHERE m.measuretime = :measuretime"),
+    @NamedQuery(name = "Measurement.findByMeasurevalue", query = "SELECT m FROM Measurement m WHERE m.measurevalue = :measurevalue")})
 public class Measurement implements Serializable {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "MEASUREVALUE")
-    private Double measurevalue;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "MEASUREID")
+    private Integer measureid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "MEASID")
-    private Integer measid;
     @Column(name = "MEASUREDATE")
     @Temporal(TemporalType.DATE)
     private Date measuredate;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "MEASURETIME")
     @Temporal(TemporalType.TIME)
     private Date measuretime;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MEASUREVALUE")
+    private double measurevalue;
     @JoinColumn(name = "TYPEID", referencedColumnName = "TYPEID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private MeasurementType typeid;
     @JoinColumn(name = "INSTALLATIONID", referencedColumnName = "INSTALLATIONID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Installation installationid;
 
     public Measurement() {
     }
 
-    public Measurement(Integer measid) {
-        this.measid = measid;
+    public Measurement(Integer measureid) {
+        this.measureid = measureid;
     }
 
-    public Integer getMeasid() {
-        return measid;
+    public Measurement(Integer measureid, Date measuredate, Date measuretime, double measurevalue) {
+        this.measureid = measureid;
+        this.measuredate = measuredate;
+        this.measuretime = measuretime;
+        this.measurevalue = measurevalue;
     }
 
-    public void setMeasid(Integer measid) {
-        this.measid = measid;
+    public Integer getMeasureid() {
+        return measureid;
+    }
+
+    public void setMeasureid(Integer measureid) {
+        this.measureid = measureid;
     }
 
     public Date getMeasuredate() {
@@ -84,6 +99,14 @@ public class Measurement implements Serializable {
 
     public void setMeasuretime(Date measuretime) {
         this.measuretime = measuretime;
+    }
+
+    public double getMeasurevalue() {
+        return measurevalue;
+    }
+
+    public void setMeasurevalue(double measurevalue) {
+        this.measurevalue = measurevalue;
     }
 
     public MeasurementType getTypeid() {
@@ -105,7 +128,7 @@ public class Measurement implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (measid != null ? measid.hashCode() : 0);
+        hash += (measureid != null ? measureid.hashCode() : 0);
         return hash;
     }
 
@@ -116,7 +139,7 @@ public class Measurement implements Serializable {
             return false;
         }
         Measurement other = (Measurement) object;
-        if ((this.measid == null && other.measid != null) || (this.measid != null && !this.measid.equals(other.measid))) {
+        if ((this.measureid == null && other.measureid != null) || (this.measureid != null && !this.measureid.equals(other.measureid))) {
             return false;
         }
         return true;
@@ -124,15 +147,7 @@ public class Measurement implements Serializable {
 
     @Override
     public String toString() {
-        return "at.heli.scada.entities.Measurement[ measid=" + measid + " ]";
-    }
-
-    public Double getMeasurevalue() {
-        return measurevalue;
-    }
-
-    public void setMeasurevalue(Double measurevalue) {
-        this.measurevalue = measurevalue;
+        return "at.heli.scada.entities.Measurement[ measureid=" + measureid + " ]";
     }
     
 }

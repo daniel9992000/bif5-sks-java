@@ -4,8 +4,8 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.bl.Statistic;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.entities.Statistic;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
@@ -43,7 +43,7 @@ public class MockMeasurementRepository implements MeasurementRepository {
     public Measurement getById(int id) throws DalException {
         for(Measurement m : measures)
         {
-            if(m.getMeasid() == id)
+            if(m.getMeasureid() == id)
             {
                 return m;
             }

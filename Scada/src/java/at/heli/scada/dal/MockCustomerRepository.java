@@ -4,9 +4,8 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.dal.interfaces.Repository;
 import at.heli.scada.dal.qualifier.MockCustomerQualifier;
-import at.heli.scada.dal.exception.DalException;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Engineer;

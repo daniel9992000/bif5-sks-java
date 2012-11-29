@@ -6,12 +6,13 @@ package at.heli.scada.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,29 +38,29 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Installation.findBySerialno", query = "SELECT i FROM Installation i WHERE i.serialno = :serialno"),
     @NamedQuery(name = "Installation.findByLongitude", query = "SELECT i FROM Installation i WHERE i.longitude = :longitude"),
     @NamedQuery(name = "Installation.findByLatitude", query = "SELECT i FROM Installation i WHERE i.latitude = :latitude"),
-    @NamedQuery(name = "Installation.findByDescription", query = "SELECT i FROM Installation i WHERE i.description = :description"),
-    @NamedQuery(name = "Installation.findByCustomerId", query = "SELECT i FROM Installation i WHERE i.customerid = :customerid")})
+    @NamedQuery(name = "Installation.findByDescription", query = "SELECT i FROM Installation i WHERE i.description = :description")})
 public class Installation implements Serializable {
-    @Column(name = "LATITUDE")
-    private BigInteger latitude;
-    @Column(name = "LONGITUDE")
-    private BigInteger longitude;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "INSTALLATIONID")
     private Integer installationid;
     @Size(max = 40)
     @Column(name = "SERIALNO")
     private String serialno;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "LONGITUDE")
+    private BigDecimal longitude;
+    @Column(name = "LATITUDE")
+    private BigDecimal latitude;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
     @Column(name = "DESCRIPTION")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "installationid")
-    private Collection<Measurement> measurementCollection;
+    private List<Measurement> measurementList;
     @JoinColumn(name = "CUSTOMERID", referencedColumnName = "PERSONID")
     @ManyToOne(optional = false)
     private Customer customerid;
@@ -92,6 +93,22 @@ public class Installation implements Serializable {
         this.serialno = serialno;
     }
 
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -101,12 +118,12 @@ public class Installation implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Measurement> getMeasurementCollection() {
-        return measurementCollection;
+    public List<Measurement> getMeasurementList() {
+        return measurementList;
     }
 
-    public void setMeasurementCollection(Collection<Measurement> measurementCollection) {
-        this.measurementCollection = measurementCollection;
+    public void setMeasurementList(List<Measurement> measurementList) {
+        this.measurementList = measurementList;
     }
 
     public Customer getCustomerid() {
@@ -140,22 +157,6 @@ public class Installation implements Serializable {
     @Override
     public String toString() {
         return "at.heli.scada.entities.Installation[ installationid=" + installationid + " ]";
-    }
-
-    public BigInteger getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(BigInteger latitude) {
-        this.latitude = latitude;
-    }
-
-    public BigInteger getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(BigInteger longitude) {
-        this.longitude = longitude;
     }
     
 }

@@ -6,12 +6,13 @@ package at.heli.scada.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,14 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MeasurementType.findByValuemax", query = "SELECT m FROM MeasurementType m WHERE m.valuemax = :valuemax"),
     @NamedQuery(name = "MeasurementType.findByUnit", query = "SELECT m FROM MeasurementType m WHERE m.unit = :unit")})
 public class MeasurementType implements Serializable {
-    @Column(name = "VALUEMAX")
-    private Double valuemax;
-    @Column(name = "VALUEMIN")
-    private Double valuemin;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "TYPEID")
     private Integer typeid;
     @Basic(optional = false)
@@ -52,13 +49,22 @@ public class MeasurementType implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "DESCRIPTION")
     private String description;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VALUEMIN")
+    private BigDecimal valuemin;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VALUEMAX")
+    private BigDecimal valuemax;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
     @Column(name = "UNIT")
     private String unit;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeid")
-    private Collection<Measurement> measurementCollection;
+    private List<Measurement> measurementList;
 
     public MeasurementType() {
     }
@@ -67,7 +73,7 @@ public class MeasurementType implements Serializable {
         this.typeid = typeid;
     }
 
-    public MeasurementType(Integer typeid, String description, Double valuemin, Double valuemax, String unit) {
+    public MeasurementType(Integer typeid, String description, BigDecimal valuemin, BigDecimal valuemax, String unit) {
         this.typeid = typeid;
         this.description = description;
         this.valuemin = valuemin;
@@ -91,6 +97,22 @@ public class MeasurementType implements Serializable {
         this.description = description;
     }
 
+    public BigDecimal getValuemin() {
+        return valuemin;
+    }
+
+    public void setValuemin(BigDecimal valuemin) {
+        this.valuemin = valuemin;
+    }
+
+    public BigDecimal getValuemax() {
+        return valuemax;
+    }
+
+    public void setValuemax(BigDecimal valuemax) {
+        this.valuemax = valuemax;
+    }
+
     public String getUnit() {
         return unit;
     }
@@ -100,12 +122,12 @@ public class MeasurementType implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Measurement> getMeasurementCollection() {
-        return measurementCollection;
+    public List<Measurement> getMeasurementList() {
+        return measurementList;
     }
 
-    public void setMeasurementCollection(Collection<Measurement> measurementCollection) {
-        this.measurementCollection = measurementCollection;
+    public void setMeasurementList(List<Measurement> measurementList) {
+        this.measurementList = measurementList;
     }
 
     @Override
@@ -131,22 +153,6 @@ public class MeasurementType implements Serializable {
     @Override
     public String toString() {
         return "at.heli.scada.entities.MeasurementType[ typeid=" + typeid + " ]";
-    }
-
-    public Double getValuemax() {
-        return valuemax;
-    }
-
-    public void setValuemax(Double valuemax) {
-        this.valuemax = valuemax;
-    }
-
-    public Double getValuemin() {
-        return valuemin;
-    }
-
-    public void setValuemin(Double valuemin) {
-        this.valuemin = valuemin;
     }
     
 }
