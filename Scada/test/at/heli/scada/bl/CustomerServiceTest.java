@@ -156,7 +156,7 @@ public class CustomerServiceTest {
         Assert.assertEquals(c, result.getAffectedObject());
     }
     
-    @Test
+    @Test(expected=BLException.class)
     public void getCustomerWithError() throws DalException, BLException
     {
         //Arrange
@@ -168,6 +168,7 @@ public class CustomerServiceTest {
         ExecutionResult<Customer> result = cs.getCustomer(cid);
         
         //Assert
+        
         Assert.assertTrue(result.isSuccess());
         Assert.assertEquals(null, result.getAffectedObject());
     }

@@ -13,4 +13,5 @@ import at.heli.scada.entities.Measurement;
  */
 public interface IInstallationService {
     public ExecutionResult<Measurement> createMeasure(Double value, int typeid, String serialno) throws BLException;
+    public ExecutionResult<Installation> createInstallation(Installation i) throws BLException;
 }

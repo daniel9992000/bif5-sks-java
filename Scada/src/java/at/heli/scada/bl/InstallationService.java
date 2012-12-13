@@ -14,6 +14,7 @@ import at.heli.scada.dal.interfaces.TypeRepository;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
 import at.heli.scada.entities.MeasurementType;
+import at.heli.scada.validator.InstallationValidator;
 import at.heli.scada.validator.MeasurementValidator;
 import at.heli.scada.validator.ValidationError;
 import at.heli.scada.validator.Validator;
@@ -52,6 +53,7 @@ public class InstallationService implements IInstallationService {
     public ExecutionResult<Measurement> createMeasure(Double value, int typeid, String serialno) throws BLException {
         try
         {
+            log.log(Level.INFO, "Fetching installation serialno {0}", serialno);
             Installation i = irepo.getBySerialNo(serialno);
             
             if(i == null)
@@ -59,6 +61,7 @@ public class InstallationService implements IInstallationService {
                 throw new BLException("Installation with serial no " + serialno + " does not exist!");
             }
             
+            log.log(Level.INFO, "Fetching measurement type id {0}", typeid);
             MeasurementType mt = trepo.getById(typeid);
             
             if(mt == null)
@@ -102,6 +105,41 @@ public class InstallationService implements IInstallationService {
         {
             log.log(Level.SEVERE, "cannot save measurement!", err);
             throw new BLException("cannot save measurement!", err);
+        }
+    }
+
+    @Override
+    public ExecutionResult<Installation> createInstallation(Installation i) throws BLException {
+        
+        try
+        {
+            Validator<Installation> validator = new InstallationValidator();
+            validator.validate(i);
+            
+            if(validator.isValid())
+            {
+                irepo.save(i);
+                log.log(Level.INFO, "Installation saved!");
+                return new ExecutionResult<Installation>(i);
+            }
+            else
+            {
+                log.log(Level.INFO, "{0} Validation errors", validator.getErrors().size());
+                for(ValidationError ve : validator.getErrors())
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Error on property ");
+                    sb.append(ve.getField());
+                    sb.append(": ");
+                    sb.append(ve.getMessage());
+                    log.log(Level.INFO, sb.toString());
+                }
+                return new ExecutionResult<Installation>(i, validator.getErrors());
+            }
+        }
+        catch(DalException err)
+        {
+            throw new BLException("cannot create installation!", err);
         }
     }
 }
