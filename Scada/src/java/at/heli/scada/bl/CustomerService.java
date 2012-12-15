@@ -16,18 +16,24 @@ import at.heli.scada.validator.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author daniel
  */
+@Named
+@Alternative
 public class CustomerService implements ICustomerService {
     
     private static final Logger log = Logger.getLogger(CustomerService.class.getName());
     
     private InstallationRepository irepo;
     private CustomerRepository crepo;
-    
+   
+    @Inject
     public CustomerService(InstallationRepository irepo, CustomerRepository crepo)
     {
         this.irepo = irepo;

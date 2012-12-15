@@ -4,5 +4,14 @@
        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
     <alternatives>
         <class>at.heli.scada.bl.InstallationService</class>
+        <class>at.heli.scada.bl.CustomerService</class>
+        <class>at.heli.scada.bl.StatisticService</class>
+        <class>at.heli.scada.bl.PersonService</class>
+        <class>at.heli.scada.dal.DbCustomerRepository</class>
+        <class>at.heli.scada.dal.DbEngineerRepository</class>
+        <class>at.heli.scada.dal.DbPersonRepository</class>
+        <class>at.heli.scada.dal.DbMeasurementRepository</class>
+        <class>at.heli.scada.dal.DbInstallationRepository</class>
+        <class>at.heli.scada.dal.DbTypeRepository</class>
     </alternatives>
 </beans>

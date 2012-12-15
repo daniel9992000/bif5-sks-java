@@ -6,10 +6,10 @@ package at.heli.scada.dal;
 
 import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.TypeRepository;
-import at.heli.scada.dal.qualifier.DbTypeQualifier;
 import at.heli.scada.entities.MeasurementType;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -19,7 +19,7 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
-@DbTypeQualifier
+@Alternative
 public class DbTypeRepository implements TypeRepository {
     
     @PersistenceContext

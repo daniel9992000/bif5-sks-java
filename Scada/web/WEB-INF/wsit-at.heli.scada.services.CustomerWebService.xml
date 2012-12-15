@@ -88,6 +88,9 @@
                     </wsp:Policy>
                 </sp:SignedEncryptedSupportingTokens>
                 <sc:KeyStore wspp:visibility="private" location="/Applications/NetBeans/glassfish-3.1.2.2/glassfish/domains/domain1/config/keystore.jks" type="JKS" storepass="changeit" alias="xws-security-server"/>
+                <sc:ValidatorConfiguration wspp:visibility="private">
+                    <sc:Validator name="usernameValidator" classname="at.heli.scada.services.Authenticator"/>
+                </sc:ValidatorConfiguration>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>

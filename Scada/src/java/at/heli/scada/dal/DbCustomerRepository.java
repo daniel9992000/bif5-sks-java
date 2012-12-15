@@ -6,11 +6,11 @@ package at.heli.scada.dal;
 
 import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.CustomerRepository;
-import at.heli.scada.dal.qualifier.DbCustomerQualifier;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Engineer;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -20,7 +20,7 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
-@DbCustomerQualifier
+@Alternative
 public class DbCustomerRepository implements CustomerRepository {
     
     @PersistenceContext

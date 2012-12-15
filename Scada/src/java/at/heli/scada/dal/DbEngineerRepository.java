@@ -4,12 +4,13 @@
  */
 package at.heli.scada.dal;
 
-import at.heli.scada.dal.qualifier.DbEngineerQualifier;
+
 import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.EngineerRepository;
 import at.heli.scada.entities.Engineer;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -19,7 +20,7 @@ import javax.persistence.Query;
  * @author daniel
  */
 @Stateless
-@DbEngineerQualifier
+@Alternative
 public class DbEngineerRepository implements EngineerRepository {
     
     @PersistenceContext

@@ -21,8 +21,6 @@ import at.heli.scada.validator.Validator;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,9 +29,8 @@ import javax.inject.Named;
  *
  * @author daniel
  */
+@Named
 @Alternative
-@ApplicationScoped
-@Named("installation")
 public class InstallationService implements IInstallationService {
     
     private static final Logger log = Logger.getLogger(InstallationService.class.getName());
@@ -42,6 +39,7 @@ public class InstallationService implements IInstallationService {
     private InstallationRepository irepo;
     private TypeRepository trepo;
     
+    @Inject
     public InstallationService(MeasurementRepository mrepo, InstallationRepository irepo, TypeRepository trepo)
     {
         this.mrepo = mrepo;

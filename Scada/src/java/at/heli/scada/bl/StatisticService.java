@@ -23,12 +23,16 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author daniel
  */
-@ApplicationScoped
+@Named
+@Alternative
 public class StatisticService implements IStatisticService {
     
     private static final Logger log = Logger.getLogger(StatisticService.class.getName());
@@ -37,6 +41,7 @@ public class StatisticService implements IStatisticService {
     private InstallationRepository irepo;
     private CustomerRepository crepo;
     
+    @Inject
     public StatisticService(MeasurementRepository mrepo, InstallationRepository irepo, CustomerRepository crepo)
     {
         this.mrepo = mrepo;

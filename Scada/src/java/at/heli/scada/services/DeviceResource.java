@@ -4,15 +4,8 @@
  */
 package at.heli.scada.services;
 
-import at.heli.scada.bl.InstallationService;
 import at.heli.scada.bl.interfaces.ExecutionResult;
 import at.heli.scada.bl.interfaces.IInstallationService;
-import at.heli.scada.dal.interfaces.InstallationRepository;
-import at.heli.scada.dal.interfaces.MeasurementRepository;
-import at.heli.scada.dal.interfaces.TypeRepository;
-import at.heli.scada.dal.qualifier.DbInstallationQualifier;
-import at.heli.scada.dal.qualifier.DbMeasurementQualifier;
-import at.heli.scada.dal.qualifier.DbTypeQualifier;
 import at.heli.scada.entities.Measurement;
 import java.net.URI;
 import java.util.logging.Level;
@@ -51,16 +44,8 @@ public class DeviceResource {
     @Context
     private UriInfo context;
     
-    @Inject @DbMeasurementQualifier
-    MeasurementRepository mrepo;
-    
-    @Inject @DbInstallationQualifier
-    InstallationRepository irepo;
-    
-    @Inject @DbTypeQualifier
-    TypeRepository trepo;
-    
-    IInstallationService sbl; 
+    @Inject
+    private IInstallationService sbl; 
 
     /**
      * Creates a new instance of DeviceResource
@@ -74,7 +59,7 @@ public class DeviceResource {
     @Consumes("application/json")
     public Response createMeasure(@PathParam("serialno") String serialno, MeasureValue in)
     {
-        sbl = new InstallationService(mrepo, irepo, trepo);
+        
         try {
             log.log(Level.INFO, "Creating measurement for installation with serialno {0}", serialno);
             ExecutionResult<Measurement> result = sbl.createMeasure(in.value, in.typeid, serialno);

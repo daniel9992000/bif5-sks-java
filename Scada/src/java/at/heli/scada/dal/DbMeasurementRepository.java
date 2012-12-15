@@ -7,7 +7,6 @@ package at.heli.scada.dal;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
 import at.heli.scada.entities.InstallationState;
 import at.heli.scada.entities.Statistic;
-import at.heli.scada.dal.qualifier.DbMeasurementQualifier;
 import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.entities.Installation;
 import at.heli.scada.entities.Measurement;
@@ -15,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -25,7 +25,7 @@ import javax.persistence.TypedQuery;
  * @author daniel
  */
 @Stateless
-@DbMeasurementQualifier
+@Alternative
 public class DbMeasurementRepository implements MeasurementRepository {
     
     @PersistenceContext
