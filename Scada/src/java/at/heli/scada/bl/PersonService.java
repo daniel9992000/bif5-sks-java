@@ -62,5 +62,4 @@ public class PersonService implements IPersonService {
             throw new BLException("Error while authenticating user!", ex);
         }
     }
-    
 }
