@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Bearbeiten</h1>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Vorname*:" for="firstname"/>
+                <h:inputText id="firstname" value="#{engineerBean.currentCustomer.firstname}"
+                             required="true" requiredMessage="Bitte Vorname angeben!"/>
+                
+                <h:outputLabel value="Nachname*:" for="lastname"/>
+                <h:inputText id="lastname" value="#{engineerBean.currentCustomer.lastname}"
+                             required="true" requiredMessage="Bitte Nachname angeben!"/>
+
+                <h:outputLabel value="E-Mail" for="email"/>
+                <h:inputText id="email" value="#{engineerBean.currentCustomer.email}"/>
+                <h:outputLabel value="Benutzername" for="username"/>
+                <h:inputText id="username" value="#{engineerBean.currentCustomer.username}"/>
+                <h:outputLabel value="Passwort" for="password"/>
+                <h:inputSecret id="password" value="#{engineerBean.currentCustomer.password}"/>
+            </h:panelGrid>  
+            <br/><br/>
+            <h:commandButton action="#{engineerBean.listCustomer()}" value="Abbrechen" immediate="true"/>
+            <h:commandButton action="#{engineerBean.saveCustomer()}" value="Speichern"/>
+        </h:form>
+    </h:body>
+</html>
+

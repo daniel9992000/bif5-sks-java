@@ -72,6 +72,39 @@ public class EngineerBean implements Serializable {
         }
     }
     
+    public String listCustomer()
+    {
+        try
+        {
+            ExecutionResult<List<Customer>> result = ebl.getCustomers(current.getPersonid());
+            customers = new ListDataModel<Customer>(result.getAffectedObject());
+        }
+        catch(BLException e)
+        {
+           
+        }
+        return "engineer";
+    }
+    
+    public String editCustomer()
+    {
+        setCurrentCustomer(customers.getRowData());
+        return "customerDetail";
+    }
+    
+    public String saveCustomer()
+    {
+        try
+        {
+            ExecutionResult<Customer> result = cbl.createCustomer(currentCustomer);
+        }
+        catch(BLException e)
+        {
+           return "customerDetail";
+        }
+        return "engineer";
+    }
+    
     public String getInstallation()
     {
         setCurrentCustomer(customers.getRowData());
