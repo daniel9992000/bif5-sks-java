@@ -4,6 +4,8 @@
  */
 package at.heli.scada.bl.interfaces;
 
+import at.heli.scada.entities.Person;
+
 /**
  *
  * @author daniel
@@ -11,5 +13,6 @@ package at.heli.scada.bl.interfaces;
 public interface IPersonService {
     
     public boolean authenticatePerson(String username, String password) throws BLException;
+    public Person login(String username, String password) throws BLException;
     
 }

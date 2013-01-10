@@ -18,8 +18,8 @@ import java.util.Map;
 public interface IStatisticService {
     
     public List<Measurement> getInstallationState(Installation i) throws BLException;
-    public ExecutionResult<Map<Installation, List<Statistic>>> getStatisticPerDay(int customerid, Date date) throws BLException;
-    public ExecutionResult<Map<Installation, List<Statistic>>> getStatisticPerMonth(int customerid, Date date) throws BLException;
-    public ExecutionResult<Map<Installation, List<Statistic>>> getStatisticPerYear(int customerid, Date date) throws BLException;
+    public ExecutionResult<List<Statistic>> getStatisticPerDay(int customerid, Date date) throws BLException;
+    public ExecutionResult<List<Statistic>> getStatisticPerMonth(int customerid, Date date) throws BLException;
+    public ExecutionResult<List<Statistic>> getStatisticPerYear(int customerid, Date date) throws BLException;
     
 }

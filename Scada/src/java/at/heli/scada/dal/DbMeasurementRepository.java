@@ -57,8 +57,8 @@ public class DbMeasurementRepository implements MeasurementRepository {
         List<Statistic> tmp;
         try
         {
-            TypedQuery<Statistic> q = em.createQuery("SELECT NEW at.heli.scada.bl.Statistic(AVG(m.measurevalue), MAX(m.measurevalue), MIN(m.measurevalue), mt.unit, mt.description) "
-                    + "FROM MeasurementType mt INNER JOIN mt.measurementCollection m "
+            TypedQuery<Statistic> q = em.createQuery("SELECT NEW at.heli.scada.entities.Statistic(AVG(m.measurevalue), MAX(m.measurevalue), MIN(m.measurevalue), mt.unit, mt.description) "
+                    + "FROM MeasurementType mt INNER JOIN mt.measurementList m "
                     + "WHERE m.measuredate = :measuredate AND m.installationid = :installationid "
                     + "GROUP BY m.typeid, mt.unit, mt.description", Statistic.class);
             q.setParameter("installationid", i);
@@ -90,8 +90,8 @@ public class DbMeasurementRepository implements MeasurementRepository {
         Date last = cal.getTime();
         try
         {
-            TypedQuery<Statistic> q = em.createQuery("SELECT NEW at.heli.scada.bl.Statistic(AVG(m.measurevalue), MAX(m.measurevalue), MIN(m.measurevalue), mt.unit, mt.description) "
-                    + "FROM MeasurementType mt INNER JOIN mt.measurementCollection m "
+            TypedQuery<Statistic> q = em.createQuery("SELECT NEW at.heli.scada.entities.Statistic(AVG(m.measurevalue), MAX(m.measurevalue), MIN(m.measurevalue), mt.unit, mt.description) "
+                    + "FROM MeasurementType mt INNER JOIN mt.measurementList m "
                     + "WHERE m.measuredate >= :first AND m.measuredate <= :last AND m.installationid = :installationid "
                     + "GROUP BY m.typeid, mt.unit, mt.description", Statistic.class);
             q.setParameter("installationid", i);
@@ -124,8 +124,8 @@ public class DbMeasurementRepository implements MeasurementRepository {
         Date last = cal.getTime();
         try
         {
-            TypedQuery<Statistic> q = em.createQuery("SELECT NEW at.heli.scada.bl.Statistic(AVG(m.measurevalue), MAX(m.measurevalue), MIN(m.measurevalue), mt.unit, mt.description) "
-                    + "FROM MeasurementType mt INNER JOIN mt.measurementCollection m "
+            TypedQuery<Statistic> q = em.createQuery("SELECT NEW at.heli.scada.entities.Statistic(AVG(m.measurevalue), MAX(m.measurevalue), MIN(m.measurevalue), mt.unit, mt.description) "
+                    + "FROM MeasurementType mt INNER JOIN mt.measurementList m "
                     + "WHERE m.measuredate >= :first AND m.measuredate <= :last AND m.installationid = :installationid "
                     + "GROUP BY m.typeid, mt.unit, mt.description", Statistic.class);
             q.setParameter("installationid", i);

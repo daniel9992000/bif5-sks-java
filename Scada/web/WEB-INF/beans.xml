@@ -7,6 +7,7 @@
         <class>at.heli.scada.bl.CustomerService</class>
         <class>at.heli.scada.bl.StatisticService</class>
         <class>at.heli.scada.bl.PersonService</class>
+        <class>at.heli.scada.bl.EngineerService</class>
         <class>at.heli.scada.dal.DbCustomerRepository</class>
         <class>at.heli.scada.dal.DbEngineerRepository</class>
         <class>at.heli.scada.dal.DbPersonRepository</class>

@@ -4,25 +4,25 @@
  */
 package at.heli.scada.bl;
 
-import at.heli.scada.entities.Statistic;
-import at.heli.scada.entities.InstallationState;
-import at.heli.scada.bl.interfaces.ExecutionResult;
 import at.heli.scada.bl.interfaces.BLException;
+import at.heli.scada.bl.interfaces.ExecutionResult;
 import at.heli.scada.bl.interfaces.IStatisticService;
+import at.heli.scada.dal.interfaces.CustomerRepository;
+import at.heli.scada.dal.interfaces.DalException;
 import at.heli.scada.dal.interfaces.InstallationRepository;
 import at.heli.scada.dal.interfaces.MeasurementRepository;
-import at.heli.scada.dal.interfaces.DalException;
-import at.heli.scada.dal.interfaces.CustomerRepository;
 import at.heli.scada.entities.Customer;
 import at.heli.scada.entities.Installation;
+import at.heli.scada.entities.InstallationState;
 import at.heli.scada.entities.Measurement;
+import at.heli.scada.entities.Statistic;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.logging.Level;
-import javax.enterprise.context.ApplicationScoped;
+import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,6 +33,7 @@ import javax.inject.Named;
  */
 @Named
 @Alternative
+@Stateless
 public class StatisticService implements IStatisticService {
     
     private static final Logger log = Logger.getLogger(StatisticService.class.getName());
@@ -40,6 +41,11 @@ public class StatisticService implements IStatisticService {
     private MeasurementRepository mrepo;
     private InstallationRepository irepo;
     private CustomerRepository crepo;
+    
+    public StatisticService()
+    {
+        
+    }
     
     @Inject
     public StatisticService(MeasurementRepository mrepo, InstallationRepository irepo, CustomerRepository crepo)
@@ -49,6 +55,7 @@ public class StatisticService implements IStatisticService {
         this.crepo = crepo;
     }
     
+    @Override
     public List<Measurement> getInstallationState(Installation i) throws BLException
     {
         Map<Installation, List<InstallationState>> stats = new HashMap<Installation, List<InstallationState>>();
@@ -69,104 +76,88 @@ public class StatisticService implements IStatisticService {
         return mes;
     }
     
-    public ExecutionResult<Map<Installation, List<Statistic>>> getStatisticPerDay(int customerid, Date date) throws BLException
-    {
-        //For each installation, a whole statistic
-        Map<Installation, List<Statistic>> stats = new HashMap<Installation, List<Statistic>>();
-        
+    @Override
+    public ExecutionResult<List<Statistic>> getStatisticPerDay(int installationid, Date date) throws BLException
+    { 
+        List<Statistic> tmp;
         try
         {
-            log.log(Level.INFO, "Fetching customer id {0}", customerid);
-            Customer c = crepo.getById(customerid);
-            if(c == null)
+            log.log(Level.INFO, "Fetching installation id {0}", installationid);
+            Installation i = irepo.getById(installationid);
+            if(i == null)
             {
-                throw new BLException("Customer does not exist with ID " + customerid);
+                throw new BLException("Installation does not exist with ID " + installationid);
             }
             
-            List<Statistic> tmp;
-            
-            log.log(Level.INFO, "Fetching all installations for customer id {0}", customerid);
-            for(Installation i : irepo.getByCustomerId(c))
-            {
+            log.log(Level.INFO, "Fetching statistics for installation id {0}", installationid);
                 
-                tmp = mrepo.getPerDay(i, date);
-                log.log(Level.INFO, "Statistic per day for installation id {0} created", i.getInstallationid());
-                stats.put(i, tmp);
-            }  
+            tmp = mrepo.getPerDay(i, date);
+            log.log(Level.INFO, "Statistic per day for installation id {0} created", installationid);
+             
         }
         catch(DalException err)
         {
-            log.log(Level.SEVERE, "Error while creating statistics per day for customer id {0}", customerid);
+            log.log(Level.SEVERE, "Error while creating statistics per day for installation id {0}", installationid);
             throw new BLException("Error while creating statistics per day!", err);
         }
         
-        return new ExecutionResult<Map<Installation, List<Statistic>>>(stats);
+        return new ExecutionResult<List<Statistic>>(tmp);
     }
     
-    public ExecutionResult<Map<Installation, List<Statistic>>> getStatisticPerMonth(int customerid, Date date) throws BLException
+    @Override
+    public ExecutionResult<List<Statistic>> getStatisticPerMonth(int installationid, Date date) throws BLException
     {
-        //For each installation, a whole statistic
-        Map<Installation, List<Statistic>> stats = new HashMap<Installation, List<Statistic>>();
-        
+        List<Statistic> tmp;
         try
         {
-            log.log(Level.INFO, "Fetching customer id {0}", customerid);
-            Customer c = crepo.getById(customerid);
-            if(c == null)
+            log.log(Level.INFO, "Fetching installation id {0}", installationid);
+            Installation i = irepo.getById(installationid);
+            if(i == null)
             {
-                throw new BLException("Customer does not exist with ID " + customerid);
+                throw new BLException("Installation does not exist with ID " + installationid);
             }
             
-            List<Statistic> tmp;
-            
-            log.log(Level.INFO, "Fetching all installations for customer id {0}", customerid);
-            for(Installation i : irepo.getByCustomerId(c))
-            {
-                tmp = mrepo.getPerMonth(i, date);
-                log.log(Level.INFO, "Statistic per month for installation id {0} created", i.getInstallationid());
-                stats.put(i, tmp);
-            }  
+            log.log(Level.INFO, "Fetching statistics for installation id {0}", installationid);
+                
+            tmp = mrepo.getPerMonth(i, date);
+            log.log(Level.INFO, "Statistic per day for installation id {0} created", installationid);
+             
         }
         catch(DalException err)
         {
-            log.log(Level.SEVERE, "Error while creating statistics per month for customer id {0}", customerid);
+            log.log(Level.SEVERE, "Error while creating statistics per month for installation id {0}", installationid);
             throw new BLException("Error while creating statistics per month!", err);
         }
         
-        return new ExecutionResult<Map<Installation, List<Statistic>>>(stats);
+        return new ExecutionResult<List<Statistic>>(tmp);
     }
     
-    public ExecutionResult<Map<Installation, List<Statistic>>> getStatisticPerYear(int customerid, Date date) throws BLException
+    @Override
+    public ExecutionResult<List<Statistic>> getStatisticPerYear(int installationid, Date date) throws BLException
     {
-        //For each installation, a whole statistic
-        Map<Installation, List<Statistic>> stats = new HashMap<Installation, List<Statistic>>();
-        
+        List<Statistic> tmp;
         try
         {
-            log.log(Level.INFO, "Fetching customer id {0}", customerid);
-            Customer c = crepo.getById(customerid);
-            if(c == null)
+            log.log(Level.INFO, "Fetching installation id {0}", installationid);
+            Installation i = irepo.getById(installationid);
+            if(i == null)
             {
-                throw new BLException("Customer does not exist with ID " + customerid);
+                throw new BLException("Installation does not exist with ID " + installationid);
             }
             
-            List<Statistic> tmp;
-            
-            log.log(Level.INFO, "Fetching all installations for customer id {0}", customerid);
-            for(Installation i : irepo.getByCustomerId(c))
-            {
-                tmp = mrepo.getPerYear(i, date);
-                log.log(Level.INFO, "Statistic per month for installation id {0} created", i.getInstallationid());
-                stats.put(i, tmp);
-            }  
+            log.log(Level.INFO, "Fetching statistics for installation id {0}", installationid);
+                
+            tmp = mrepo.getPerYear(i, date);
+            log.log(Level.INFO, "Statistic per day for installation id {0} created", installationid);
+             
         }
         catch(DalException err)
         {
-            log.log(Level.SEVERE, "Error while creating statistics per year for customer id {0}", customerid);
+            log.log(Level.SEVERE, "Error while creating statistics per year for installation id {0}", installationid);
             throw new BLException("Error while creating statistics per year!", err);
         }
         
-        return new ExecutionResult<Map<Installation, List<Statistic>>>(stats);
+        return new ExecutionResult<List<Statistic>>(tmp);
     }
     
 }

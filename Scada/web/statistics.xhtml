@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Statistik</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h3><h:outputText value="#{engineerBean.currentInstallation.description}" /></h3>
+            <h4>Tagesstatistik</h4>
+            <h:dataTable id="dayStatList" var="stat" value="#{engineerBean.dayStat}" border="1">
+                <h:column>
+                    <f:facet name="header">Beschreibung</f:facet>
+                    <h:outputText value="#{stat.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Durchschnitt</f:facet>
+                    <h:outputText value="#{stat.average}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Minimal</f:facet>
+                    <h:outputText value="#{stat.minvalue}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Maximal</f:facet>
+                    <h:outputText value="#{stat.maxvalue}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Einheit</f:facet>
+                    <h:outputText value="#{stat.unit}"/>
+                </h:column>
+            </h:dataTable>
+            <h4>Monatsstatistik</h4>
+            <h:dataTable id="monthStatList" var="stat" value="#{engineerBean.monthStat}" border="1">
+                <h:column>
+                    <f:facet name="header">Beschreibung</f:facet>
+                    <h:outputText value="#{stat.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Durchschnitt</f:facet>
+                    <h:outputText value="#{stat.average}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Minimal</f:facet>
+                    <h:outputText value="#{stat.minvalue}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Maximal</f:facet>
+                    <h:outputText value="#{stat.maxvalue}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Einheit</f:facet>
+                    <h:outputText value="#{stat.unit}"/>
+                </h:column>
+            </h:dataTable>
+            <h4>Jahresstatistik</h4>
+            <h:dataTable id="yearStatList" var="stat" value="#{engineerBean.yearStat}" border="1">
+                <h:column>
+                    <f:facet name="header">Beschreibung</f:facet>
+                    <h:outputText value="#{stat.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Durchschnitt</f:facet>
+                    <h:outputText value="#{stat.average}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Minimal</f:facet>
+                    <h:outputText value="#{stat.minvalue}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Maximal</f:facet>
+                    <h:outputText value="#{stat.maxvalue}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Einheit</f:facet>
+                    <h:outputText value="#{stat.unit}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

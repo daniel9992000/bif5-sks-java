@@ -85,7 +85,7 @@ public class DbCustomerRepository implements CustomerRepository {
         List<Customer> tmp = null;
         try
         {
-            Query q = em.createNamedQuery("Engineer.findByCustomer");
+            Query q = em.createNamedQuery("Customer.findByEngineerId");
             q.setParameter("engineerid", entity);
             tmp = q.getResultList();
         }
